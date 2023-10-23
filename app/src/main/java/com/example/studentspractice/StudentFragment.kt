@@ -42,10 +42,14 @@ class StudentFragment : Fragment() {
             val studentName = students[curStudent].name
             val studentSurname = students[curStudent].surname
             val studentEmail = students[curStudent].email
+            val studentCity = students[curStudent].city
+            val studentAvatar = students[curStudent].avatarId
 
             binding?.studentNameContainer?.text = studentName
             binding?.studentSurnameContainer?.text = studentSurname
             binding?.studentEmailContainer?.text = studentEmail
+            binding?.studentCityContainer?.text = studentCity
+            binding?.studentImgContainer?.setImageResource(studentAvatar)
         }
     }
 }

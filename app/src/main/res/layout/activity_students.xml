@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:backgroundTint="@color/material_dynamic_primary80"
+        android:scrollbars="horizontal"
         app:tabTextColor="@color/white"
         app:tabSelectedTextAppearance="@color/black"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragmentPager"

@@ -4,23 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_primary50"
-    tools:context=".StudentFragment">
+    android:background="@color/material_dynamic_primary50">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/material_dynamic_primary80"
-        app:layout_constraintTop_toTopOf="parent" />
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/fragmentPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/studentLabelName"
         android:layout_width="wrap_content"
@@ -28,9 +14,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:text="@string/name"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/studentLabelSurname"
@@ -39,7 +25,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/surname"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentNameContainer" />
 
@@ -50,9 +36,20 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/email"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentSurnameContainer" />
+
+    <TextView
+        android:id="@+id/studentLabelCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/city"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentEmailContainer" />
 
     <TextView
         android:id="@+id/studentNameContainer"
@@ -80,4 +77,23 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentLabelEmail" />
+
+    <TextView
+        android:id="@+id/studentCityContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentLabelCity" />
+
+    <ImageView
+        android:id="@+id/studentImgContainer"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentCityContainer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

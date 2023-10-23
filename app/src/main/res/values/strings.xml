@@ -5,4 +5,5 @@
     <string name="name">Nombre</string>
     <string name="surname">Apellidos</string>
     <string name="email">Correo</string>
+    <string name="city">Ciudad</string>
 </resources>
