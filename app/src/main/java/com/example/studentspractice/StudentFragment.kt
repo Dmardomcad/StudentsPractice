@@ -36,12 +36,16 @@ class StudentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val studentName = students[0].name
-        val studentSurname = students[0].surname
-        val studentEmail = students[0].email
+        val curStudent = arguments?.getInt(POSITION_ARG)
 
-        binding?.studentNameContainer?.text = studentName
-        binding?.studentSurnameContainer?.text = studentSurname
-        binding?.studentEmailContainer?.text = studentEmail
+        if(curStudent != null){
+            val studentName = students[curStudent].name
+            val studentSurname = students[curStudent].surname
+            val studentEmail = students[curStudent].email
+
+            binding?.studentNameContainer?.text = studentName
+            binding?.studentSurnameContainer?.text = studentSurname
+            binding?.studentEmailContainer?.text = studentEmail
+        }
     }
 }

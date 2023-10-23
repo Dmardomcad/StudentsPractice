@@ -17,27 +17,20 @@ class StudentsActivity : AppCompatActivity() {
         binding = ActivityStudentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-/*        if(savedInstanceState == null){
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<StudentFragment>(R.id.fragmentContainer)
-
-                //Probando cosas
-                val studentname = students[1].city
-                Log.d("thename", studentname)
-                //
-            }
-        }*/
-
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        val viewPager = findViewById<ViewPager2>(R.id.fragmentPager)
-
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.fragmentPager
         val adapter = StudentAdapter(this)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
-            tab.text = "Tab ${position + 1}"
+        TabLayoutMediator(tabLayout, viewPager){
+            tab, position ->
+            tab.text = getTabTitle(position)
         }.attach()
 
+    }
+    private fun getTabTitle(position: Int): String?{
+        val curStudentName = students[position].name
+        Log.d("gogo",curStudentName)
+        return curStudentName
     }
 }
