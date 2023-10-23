@@ -8,7 +8,7 @@ class StudentProvider {
                 "Daniel",
                 "Mariscal Dominguez",
                 "daniel.mariscal@alten.es",
-                R.drawable.img__student_screen_daniel
+                R.drawable.img__student_screen_daniel,
             ),
             Student(
                 "Badajoz",

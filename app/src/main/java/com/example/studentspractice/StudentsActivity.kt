@@ -30,7 +30,8 @@ class StudentsActivity : AppCompatActivity() {
     }
     private fun getTabTitle(position: Int): String?{
         val curStudentName = students[position].name
+        val curStudentSurname = students[position].surname
         Log.d("gogo",curStudentName)
-        return curStudentName
+        return "${curStudentName}.${curStudentSurname}"
     }
 }
