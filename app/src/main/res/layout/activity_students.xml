@@ -21,24 +21,24 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:backgroundTint="@color/material_dynamic_primary20"
-        android:scrollbars="horizontal"
+        android:backgroundTint="@color/bluegreen"
         app:layout_constraintTop_toTopOf="parent"
         app:tabMode="scrollable"
-        app:tabSelectedTextAppearance="@color/black"
+        app:tabIndicatorColor="@color/orange"
         app:tabTextColor="@color/white" />
 
     <ImageButton
-        android:id="@+id/studentImgBtnCalendar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:id="@+id/studentBtnCalendar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:scaleType="fitCenter"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/material_dynamic_primary20"
         app:layout_constraintBottom_toBottomOf="@+id/fragmentPager"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_my_calendar"
-        />
+        android:contentDescription="@string/attendance_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

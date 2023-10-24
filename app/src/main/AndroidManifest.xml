@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StudentsPractice"
         tools:targetApi="31">
         <activity
+            android:name=".AttendanceActivity"
+            android:exported="false" />
+        <activity
             android:name=".StudentsActivity"
             android:exported="true">
             <intent-filter>

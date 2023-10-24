@@ -43,6 +43,7 @@ class StudentFragment : Fragment() {
             binding?.studentEmailContainer?.text = students[curStudent].email
             binding?.studentCityContainer?.text = students[curStudent].city
             binding?.studentImgContainer?.setImageResource(students[curStudent].avatarId)
+            binding?.studentSchoolContainer?.text = students[curStudent].school
             binding?.studentTutorContainer?.text = "${students[curStudent].tutor.name} ${students[curStudent].tutor.surname}"
         }
     }

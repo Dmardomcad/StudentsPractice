@@ -7,4 +7,6 @@
     <string name="email">Correo</string>
     <string name="city">Ciudad</string>
     <string name="tutorLabel">Tutor</string>
+    <string name="attendance_button">Asistencia del alumno</string>
+    <string name="school_label">Centro</string>
 </resources>

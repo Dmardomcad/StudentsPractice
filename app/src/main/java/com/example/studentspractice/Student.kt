@@ -6,5 +6,6 @@ data class Student(
     val surname: String,
     val email: String,
     val avatarId: Int,
+    val school: String,
     val tutor: Tutor
 ) : Person(name, surname, email)

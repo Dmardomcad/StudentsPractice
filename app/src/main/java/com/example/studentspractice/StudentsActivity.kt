@@ -1,5 +1,6 @@
 package com.example.studentspractice
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.studentspractice.databinding.ActivityStudentsBinding
@@ -12,19 +13,20 @@ class StudentsActivity : AppCompatActivity() {
         binding = ActivityStudentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTabLayout()
+        setUpTabLayout()
 
         setUpClickListeners()
 
     }
     private fun setUpClickListeners(){
-        binding.studentImgBtnCalendar.setOnClickListener{ navigateToAttendance() }
+        binding.studentBtnCalendar.setOnClickListener{ navigateToAttendance() }
 
     }
     private fun navigateToAttendance(){
-
+        val intent = Intent(this, AttendanceActivity::class.java)
+        startActivity(intent)
     }
-    private fun setTabLayout(){
+    private fun setUpTabLayout(){
         val tabLayout = binding.tabLayout
         val viewPager = binding.fragmentPager
         val adapter = StudentAdapter(this)

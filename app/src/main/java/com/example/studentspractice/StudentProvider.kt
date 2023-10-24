@@ -9,6 +9,7 @@ class StudentProvider {
                 "Mariscal Dominguez",
                 "daniel.mariscal@alten.es",
                 R.drawable.img__student_screen_daniel,
+                "IES Rafael Alberti",
                 TutorProvider.tutorList[0]
             ),
             Student(
@@ -17,6 +18,7 @@ class StudentProvider {
                 "Montero quijote",
                 "claudia.montero@alten.es",
                 R.drawable.img__student_screen__claudia,
+                "IES Invent",
                 TutorProvider.tutorList[0]
 
             ),
@@ -26,6 +28,7 @@ class StudentProvider {
                 "Rodriguez Benalmadena",
                 "salvador.rodriguez@alten.es",
                 R.drawable.img__student_screen__salvador,
+                "Oxford",
                 TutorProvider.tutorList[2]
             ),
             Student(
@@ -34,6 +37,7 @@ class StudentProvider {
                 "Jimenez Santos",
                 "jesus.jimenez@alten.es",
                 R.drawable.img__student_screen__jesus,
+                "Madeup School Name",
                 TutorProvider.tutorList[1]
             )
         )
