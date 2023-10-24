@@ -6,4 +6,5 @@
     <string name="surname">Apellidos</string>
     <string name="email">Correo</string>
     <string name="city">Ciudad</string>
+    <string name="tutorLabel">Tutor</string>
 </resources>

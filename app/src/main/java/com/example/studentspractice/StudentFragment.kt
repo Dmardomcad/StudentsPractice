@@ -1,12 +1,10 @@
 package com.example.studentspractice
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.studentspractice.databinding.FragmentStudentBinding
 
 
@@ -37,19 +35,15 @@ class StudentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val curStudent = arguments?.getInt(POSITION_ARG)
+        val students = StudentProvider.studentList
 
         if(curStudent != null){
-            val studentName = students[curStudent].name
-            val studentSurname = students[curStudent].surname
-            val studentEmail = students[curStudent].email
-            val studentCity = students[curStudent].city
-            val studentAvatar = students[curStudent].avatarId
-
-            binding?.studentNameContainer?.text = studentName
-            binding?.studentSurnameContainer?.text = studentSurname
-            binding?.studentEmailContainer?.text = studentEmail
-            binding?.studentCityContainer?.text = studentCity
-            binding?.studentImgContainer?.setImageResource(studentAvatar)
+            binding?.studentNameContainer?.text = students[curStudent].name
+            binding?.studentSurnameContainer?.text = students[curStudent].surname
+            binding?.studentEmailContainer?.text = students[curStudent].email
+            binding?.studentCityContainer?.text = students[curStudent].city
+            binding?.studentImgContainer?.setImageResource(students[curStudent].avatarId)
+            binding?.studentTutorContainer?.text = "${students[curStudent].tutor.name} ${students[curStudent].tutor.surname}"
         }
     }
 }
