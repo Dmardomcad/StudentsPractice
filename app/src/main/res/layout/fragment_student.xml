@@ -142,4 +142,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/studentBtnCalendar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="fitCenter"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/material_dynamic_primary20"
+        app:layout_constraintTop_toBottomOf="@+id/studentTutorContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar"
+        android:contentDescription="@string/attendance_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

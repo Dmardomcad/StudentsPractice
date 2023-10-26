@@ -34,8 +34,10 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling" />
-
+    <include
+        android:id="@+id/layoutScrolling"
+        layout="@layout/content_scrolling"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -44,6 +46,6 @@
         android:contentDescription="@string/change_calendar_style"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_menu_today" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

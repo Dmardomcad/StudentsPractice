@@ -1,5 +1,6 @@
 package com.example.studentspractice
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +35,20 @@ class StudentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val buttonNavigator = binding?.studentBtnCalendar
+        buttonNavigator?.setOnClickListener{
+            val curStudent = arguments?.getInt(POSITION_ARG)
+            val students = StudentProvider.studentList
+
+            if(curStudent != null){
+                val intent = Intent(context, AttendanceActivity::class.java)
+                intent.putExtra("name",students[curStudent].name)
+                intent.putExtra("surname",students[curStudent].surname)
+                startActivity(intent)
+            }
+        }
+
         val curStudent = arguments?.getInt(POSITION_ARG)
         val students = StudentProvider.studentList
 

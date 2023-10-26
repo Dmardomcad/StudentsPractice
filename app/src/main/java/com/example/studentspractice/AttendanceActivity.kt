@@ -16,10 +16,20 @@ class AttendanceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(findViewById(R.id.toolbar))
-        binding.toolbarLayout.title = title
-        binding.fab.setOnClickListener { view ->
+
+        setCollapsingBarTitle()
+
+        val toggleButton = binding.fab
+
+        toggleButton.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    private fun setCollapsingBarTitle(){
+        val titleName = intent.getStringExtra("name")
+        val titleSurname = intent.getStringExtra("surname")
+        binding.toolbarLayout.title = "${titleName} ${titleSurname}"
     }
 }
