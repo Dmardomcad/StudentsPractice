@@ -13,7 +13,8 @@ class MonthAdapter(
     inner class MonthViewHolder(monthView: View) : RecyclerView.ViewHolder(monthView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_calendar_month, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.row_calendar_month, parent, false)
         return MonthViewHolder(view)
     }
 

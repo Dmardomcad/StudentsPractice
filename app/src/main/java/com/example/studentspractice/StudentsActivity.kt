@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.example.studentspractice.databinding.ActivityStudentsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-private lateinit var binding: ActivityStudentsBinding
 class StudentsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStudentsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStudentsBinding.inflate(layoutInflater)

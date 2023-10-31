@@ -8,7 +8,7 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragmentPager"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +19,14 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:backgroundTint="@color/bluegreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabMode="scrollable"
         app:tabIndicatorColor="@color/orange"
+        app:tabMode="scrollable"
         app:tabTextColor="@color/white" />
 
 
