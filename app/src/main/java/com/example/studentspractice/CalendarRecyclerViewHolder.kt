@@ -16,6 +16,7 @@ sealed class CalendarRecyclerViewHolder(binding: ViewBinding) : RecyclerView.Vie
     class DayViewHolder(private val binding: RowCalendarDayBinding) : CalendarRecyclerViewHolder(binding){
             fun bind(dayData: CalendarItem.DayData){
                 binding.txtDay.text = dayData.dayName
+                binding.txtDayState.text = dayData.state
             }
         }
     }

@@ -41,15 +41,15 @@ class AttendanceActivity : AppCompatActivity() {
         val calendarItems = mutableListOf<CalendarItem>()
         val adapterCalendar = CalendarAdapter(calendarItems)
 
-        binding.rvMonths.adapter = adapterCalendar
-        binding.rvMonths.layoutManager = LinearLayoutManager(this)
+        binding.attendanceListMonths.adapter = adapterCalendar
+        binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
 
         for (month in 8..12){
             val daysOfMonth = MonthProvider.getDaysForMonth(month, year)
             val monthName = LocalDate.of(year, month, 1).month.name
             calendarItems.add(CalendarItem.MonthData(monthName))
             daysOfMonth.forEach { day ->
-                calendarItems.add(CalendarItem.DayData(day))
+                calendarItems.add(CalendarItem.DayData(day, "Formación"))
             }
         }
     }

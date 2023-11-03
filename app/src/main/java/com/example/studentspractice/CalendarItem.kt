@@ -6,6 +6,6 @@ sealed class CalendarItem {
     ) : CalendarItem()
     data class DayData(
         val dayName: String,
-        //val state: String
+        val state: String
     ) : CalendarItem()
 }
