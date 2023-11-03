@@ -24,6 +24,7 @@ class StudentFragment : Fragment() {
     }
 
     private var binding: FragmentStudentBinding? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

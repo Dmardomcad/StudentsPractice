@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentspractice.databinding.ActivityAttendanceBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.YearMonth
 import java.util.Calendar
 import java.util.Locale
 
@@ -26,7 +25,8 @@ class AttendanceActivity : AppCompatActivity() {
 
         setCollapsingBarTitle()
         setCalendar()
-        setMonthList()
+        //setMonthList()
+        testCalendar()
 
         val toggleButton = binding.fab
 
@@ -41,8 +41,7 @@ class AttendanceActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val adapterMonth = MonthAdapter(monthList)
 
-        binding.rvMonths.adapter = adapterMonth
-        binding.rvMonths.layoutManager = LinearLayoutManager(this)
+
 
         for(month in Calendar.SEPTEMBER ..Calendar.DECEMBER){
             calendar.set(Calendar.MONTH, month)
@@ -58,30 +57,31 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun setCalendar(){
-        //val lastDayCalendar = Calendar.getInstance(Locale.ENGLISH)
-        //val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
-        //val calendar = Calendar.getInstance(Locale.ENGLISH)
+        val year = 2023
+        for (month in 8..12){
+            val daysOfMonth = MonthProvider.getDaysForMonth(month, year)
+            val monthName = LocalDate.of(year, month, 1).month.name
+            Log.d("Name of month", "${monthName}")
+            daysOfMonth.forEach { day ->
+                Log.d("dia","${day}")
+            }
+        }
+    }
+    private fun testCalendar(){
+        val calendarItems = mutableListOf<CalendarItem>()
+        val adapterCalendar = CalendarAdapter(calendarItems)
 
-        val currentYearMonth = YearMonth.now()
-        val september = YearMonth.of(currentYearMonth.year, java.time.Month.SEPTEMBER)
+        binding.rvMonths.adapter = adapterCalendar
+        binding.rvMonths.layoutManager = LinearLayoutManager(this)
 
-        val currentDate = Calendar.getInstance(Locale.ENGLISH)
-        val currentDay = currentDate[Calendar.DAY_OF_MONTH]
-        //val currentMonth = currentDate[Calendar.MONTH]
-
-        //val curMonthFormatted = dateFormat.format(calendar.time)
-        val curDayWeek = LocalDate.now().dayOfWeek
-        //val tryingDates = LocalDate.now().monthValue-1
-        val daysOfThisMonth = LocalDate.now().month
-        //val nameOfOtherMonth = java.time.Month.DECEMBER.value
-
-        Log.d("Dia","${currentDay}")
-        //Log.d("Mes", "${currentMonth}")
-        //Log.d("Prueba formateo","${curMonthFormatted}")
-        Log.d("Prueba formateo dia", "${curDayWeek}")
-        Log.d("prueba formattttt","${daysOfThisMonth}")
-        Log.d("Prueba java mes", "${september}")
-
+        val january = CalendarItem.MonthData("January")
+        val dayOne = CalendarItem.DayData("Monday 1")
+        calendarItems.add(january)
+        calendarItems.add(dayOne)
+        val february = CalendarItem.MonthData("Febrero")
+        val dayTwo = CalendarItem.DayData("Martes 2")
+        calendarItems.add(february)
+        calendarItems.add(dayTwo)
     }
 
 
