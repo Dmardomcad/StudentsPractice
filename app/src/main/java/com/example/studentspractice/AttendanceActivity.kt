@@ -1,6 +1,8 @@
 package com.example.studentspractice
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +41,13 @@ class AttendanceActivity : AppCompatActivity() {
     private fun setMonthList(){
         val year = 2023
         val calendarItems = mutableListOf<CalendarItem>()
-        val adapterCalendar = CalendarAdapter(calendarItems)
+        val adapterCalendar = CalendarAdapter(calendarItems,
+            { dayItem ->
+                val message = "El ${dayItem.dayName} estuvo de  ${dayItem.state}"
+                showAlertDialog(message)
+            },
+            { dayItem -> showOptionsDialog(dayItem)}
+            )
 
         binding.attendanceListMonths.adapter = adapterCalendar
         binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
@@ -52,6 +60,29 @@ class AttendanceActivity : AppCompatActivity() {
                 calendarItems.add(CalendarItem.DayData(day, "Formación"))
             }
         }
+    }
+
+    private fun showAlertDialog(message: String){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(message).setPositiveButton("Aceptar") { dialog, _ ->
+            dialog.dismiss()
+        }
+            .create()
+            .show()
+    }
+
+    private fun showOptionsDialog(dayItem: CalendarItem.DayData){
+        val options = arrayOf("Formación", "Vacaciones","Centro")
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Cambiar estado")
+            .setItems(options) { _, which ->
+                val selectedOption = options[which]
+                val message = "El ${dayItem.dayName} ahora está en $selectedOption"
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            }
+            .create()
+            .show()
     }
 
 }
