@@ -7,10 +7,15 @@ import com.example.studentspractice.databinding.RowCalendarDayBinding
 import com.example.studentspractice.databinding.RowCalendarMonthBinding
 import java.lang.IllegalArgumentException
 
-class CalendarAdapter (var items: List<CalendarItem>,
+class CalendarAdapter (var items: MutableList<CalendarItem>,
     private val onDayClickListener: (CalendarItem.DayData) -> Unit,
     private val onDayLongClickListener: (CalendarItem.DayData) -> Unit
 ) : RecyclerView.Adapter<CalendarRecyclerViewHolder>(){
+
+/*    fun updateItemAtPosition(position: Int, updatedItem: CalendarItem) {
+        items[position] = updatedItem
+        notifyItemChanged(position)
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarRecyclerViewHolder {
         return when (viewType) {
