@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentspractice.databinding.ActivityAttendanceBinding
-import java.time.LocalDate
+import java.text.DateFormatSymbols
+import java.util.Locale
 
 class AttendanceActivity : AppCompatActivity() {
 
@@ -26,29 +27,7 @@ class AttendanceActivity : AppCompatActivity() {
 
         val toggleButton = binding.fab
 
-        toggleButton.setOnClickListener {
-            if (!isGridLayout) {
-                val adapterCalendar = binding.attendanceListMonths.adapter
-                val newSpanCount = 5
-
-                binding.attendanceListMonths.layoutManager = GridLayoutManager(this, newSpanCount).apply {
-                    spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return when (adapterCalendar?.getItemViewType(position)) {
-                                R.layout.row_calendar_month -> 5
-                                R.layout.row_calendar_day -> 1
-                                else -> 1
-                            }
-                        }
-                    }
-                }
-                isGridLayout = true
-            } else {
-                binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
-                isGridLayout = false
-            }
-
-        }
+        toggleButton.setOnClickListener {toggleLayout() }
     }
 
     private fun setCollapsingBarTitle(){
@@ -71,12 +50,14 @@ class AttendanceActivity : AppCompatActivity() {
         binding.attendanceListMonths.adapter = adapterCalendar
         binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
 
+        val monthNames = DateFormatSymbols(Locale("es")).months
+
         for (month in 9..12){
             val daysOfMonth = MonthProvider.getDaysForMonth(month, year)
-            val monthName = LocalDate.of(year, month, 1).month.name
+            val monthName = monthNames[month - 1]
             calendarItems.add(CalendarItem.MonthData(monthName))
             daysOfMonth.forEach { day ->
-                calendarItems.add(CalendarItem.DayData(day, "Formación"))
+                calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
             }
         }
     }
@@ -94,7 +75,7 @@ class AttendanceActivity : AppCompatActivity() {
         val options = arrayOf("Formación", "Vacaciones","Centro")
         val builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Cambiar estado")
+        builder.setTitle(getString(R.string.change_day_state))
             .setItems(options) { _, which ->
                 val selectedOption = options[which]
                 val message = "El ${dayItem.dayName} con estado ${dayItem.state} ahora está en $selectedOption"
@@ -102,6 +83,29 @@ class AttendanceActivity : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun toggleLayout() {
+        if (!isGridLayout) {
+            val adapterCalendar = binding.attendanceListMonths.adapter
+            val newSpanCount = 5
+
+            binding.attendanceListMonths.layoutManager = GridLayoutManager(this, newSpanCount).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (adapterCalendar?.getItemViewType(position)) {
+                            R.layout.row_calendar_month -> 5
+                            R.layout.row_calendar_day -> 1
+                            else -> 1
+                        }
+                    }
+                }
+            }
+            isGridLayout = true
+        } else {
+            binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
+            isGridLayout = false
+        }
     }
 
 }
