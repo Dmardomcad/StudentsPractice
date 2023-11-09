@@ -14,7 +14,7 @@
         android:theme="@style/Theme.StudentsPractice.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/toolbarLayout"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,6 +55,6 @@
         android:contentDescription="@string/change_calendar_style"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_menu_today" />
+        app:srcCompat="@drawable/img__attendance_screen__grid_button" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

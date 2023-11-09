@@ -37,7 +37,6 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun setMonthList(){
-        val year = 2023
         val calendarItems = mutableListOf<CalendarItem>()
         val adapterCalendar = CalendarAdapter(calendarItems,
             { dayItem ->
@@ -45,7 +44,7 @@ class AttendanceActivity : AppCompatActivity() {
                 showAlertDialog(message)
             },
             { dayItem -> showOptionsDialog(dayItem)}
-            )
+        )
 
         binding.attendanceListMonths.adapter = adapterCalendar
         binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
@@ -53,11 +52,17 @@ class AttendanceActivity : AppCompatActivity() {
         val monthNames = DateFormatSymbols(Locale("es")).months
 
         for (month in 9..12){
-            val daysOfMonth = MonthProvider.getDaysForMonth(month, year)
+            val daysOfMonth = MonthProvider.getDaysForMonth(month, 2023)
             val monthName = monthNames[month - 1]
-            calendarItems.add(CalendarItem.MonthData(monthName))
-            daysOfMonth.forEach { day ->
-                calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
+            calendarItems.add(CalendarItem.MonthData(monthName.replaceFirstChar{ it.uppercase()}))
+            if (!isGridLayout) {
+                daysOfMonth.forEach { day ->
+                    calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
+                }
+            } else {
+                daysOfMonth.forEach { day ->
+                    calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
+                }
             }
         }
     }
@@ -90,6 +95,10 @@ class AttendanceActivity : AppCompatActivity() {
             val adapterCalendar = binding.attendanceListMonths.adapter
             val newSpanCount = 5
 
+            MonthProvider.setDateFormatGrid()
+            isGridLayout = true
+            setMonthList()
+
             binding.attendanceListMonths.layoutManager = GridLayoutManager(this, newSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -101,10 +110,14 @@ class AttendanceActivity : AppCompatActivity() {
                     }
                 }
             }
-            isGridLayout = true
+
+            binding.fab.setImageResource(R.drawable.img__attendance_screen__list_button)
         } else {
-            binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
+            MonthProvider.setDateFormatLinear()
             isGridLayout = false
+            setMonthList()
+            binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
+            binding.fab.setImageResource(R.drawable.img__attendance_screen__grid_button)
         }
     }
 
