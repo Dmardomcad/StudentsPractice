@@ -1,12 +1,12 @@
 package com.example.studentspractice
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentspractice.databinding.ActivityAttendanceBinding
+import com.google.android.material.snackbar.Snackbar
 import java.text.DateFormatSymbols
 import java.util.Locale
 
@@ -30,6 +30,7 @@ class AttendanceActivity : AppCompatActivity() {
 
         setCollapsingBarTitle()
         setMonthList()
+        binding.attendanceActivityClose.setOnClickListener { finish() }
 
         val toggleButton = binding.fab
 
@@ -93,16 +94,32 @@ class AttendanceActivity : AppCompatActivity() {
         val options = arrayOf("Formación", "Vacaciones","Centro")
         val builder = AlertDialog.Builder(this)
 
+        val previousState = dayItem.state
+
         builder.setTitle(getString(R.string.change_day_state))
             .setItems(options) { _, which ->
                 val selectedOption = options[which]
-                val message = "El ${dayItem.dayName} con estado ${dayItem.state} ahora está en $selectedOption"
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                 dayItem.state = selectedOption
                 adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
+
+                showUndoSnackbar(previousState, dayItem)
             }
             .create()
             .show()
+    }
+
+    private fun showUndoSnackbar(previousState: String, dayItem: CalendarItem.DayData) {
+        val snackbar = Snackbar.make(
+            binding.attendanceContainerLayout,
+            R.string.changed_state,
+            Snackbar.LENGTH_LONG
+        )
+        snackbar.setAction(R.string.undo) {
+            dayItem.state = previousState
+            adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
+            Snackbar.make(binding.attendanceContainerLayout, R.string.undo_change, Snackbar.LENGTH_SHORT).show()
+        }
+        snackbar.show()
     }
 
     private fun toggleLayout() {

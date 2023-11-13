@@ -12,11 +12,6 @@ class CalendarAdapter (var items: MutableList<CalendarItem>,
     private val onDayLongClickListener: (CalendarItem.DayData) -> Unit
 ) : RecyclerView.Adapter<CalendarRecyclerViewHolder>(){
 
-/*    fun updateItemAtPosition(position: Int, updatedItem: CalendarItem) {
-        items[position] = updatedItem
-        notifyItemChanged(position)
-    }*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarRecyclerViewHolder {
         return when (viewType) {
              R.layout.row_calendar_month -> CalendarRecyclerViewHolder.MonthViewHolder(
