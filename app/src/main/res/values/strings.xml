@@ -103,4 +103,5 @@
     <string name="change_calendar_style">Cambiar vista del calendario</string>
     <string name="day_state_study">Formación</string>
     <string name="change_day_state">Cambiar estado</string>
+    <string name="go_back">Volver atrás</string>
 </resources>

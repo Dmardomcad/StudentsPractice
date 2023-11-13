@@ -13,7 +13,10 @@ import java.util.Locale
 class AttendanceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAttendanceBinding
+    private lateinit var calendarItems: MutableList<CalendarItem>
+    private lateinit var adapterCalendar: CalendarAdapter
     private var isGridLayout: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,6 +24,9 @@ class AttendanceActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        setAdapter()
+        binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
 
         setCollapsingBarTitle()
         setMonthList()
@@ -30,6 +36,18 @@ class AttendanceActivity : AppCompatActivity() {
         toggleButton.setOnClickListener {toggleLayout() }
     }
 
+    private fun setAdapter(){
+        calendarItems = mutableListOf()
+        adapterCalendar = CalendarAdapter(calendarItems,
+            {dayItem ->
+                val message = "El ${dayItem.dayName} estuvo de ${dayItem.state}"
+                showAlertDialog(message)
+            },
+            {dayItem -> setNewDayState(dayItem)}
+        )
+        binding.attendanceListMonths.adapter = adapterCalendar
+    }
+
     private fun setCollapsingBarTitle(){
         val titleName = intent.getStringExtra("name")
         val titleSurname = intent.getStringExtra("surname")
@@ -37,16 +55,8 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun setMonthList(){
-        val calendarItems = mutableListOf<CalendarItem>()
-        val adapterCalendar = CalendarAdapter(calendarItems,
-            { dayItem ->
-                val message = "El ${dayItem.dayName} estuvo de  ${dayItem.state}"
-                showAlertDialog(message)
-            },
-            { dayItem -> showOptionsDialog(dayItem)}
-        )
+        calendarItems.clear()
 
-        binding.attendanceListMonths.adapter = adapterCalendar
         binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
 
         val monthNames = DateFormatSymbols(Locale("es")).months
@@ -54,7 +64,9 @@ class AttendanceActivity : AppCompatActivity() {
         for (month in 9..12){
             val daysOfMonth = MonthProvider.getDaysForMonth(month, 2023)
             val monthName = monthNames[month - 1]
+
             calendarItems.add(CalendarItem.MonthData(monthName.replaceFirstChar{ it.uppercase()}))
+
             if (!isGridLayout) {
                 daysOfMonth.forEach { day ->
                     calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
@@ -62,6 +74,7 @@ class AttendanceActivity : AppCompatActivity() {
             } else {
                 daysOfMonth.forEach { day ->
                     calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
+                    //binding.attendanceListMonths.visibility = View.GONE
                 }
             }
         }
@@ -76,7 +89,7 @@ class AttendanceActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showOptionsDialog(dayItem: CalendarItem.DayData){
+    private fun setNewDayState(dayItem: CalendarItem.DayData){
         val options = arrayOf("Formación", "Vacaciones","Centro")
         val builder = AlertDialog.Builder(this)
 
@@ -85,6 +98,8 @@ class AttendanceActivity : AppCompatActivity() {
                 val selectedOption = options[which]
                 val message = "El ${dayItem.dayName} con estado ${dayItem.state} ahora está en $selectedOption"
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                dayItem.state = selectedOption
+                adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
             }
             .create()
             .show()
@@ -92,7 +107,6 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun toggleLayout() {
         if (!isGridLayout) {
-            val adapterCalendar = binding.attendanceListMonths.adapter
             val newSpanCount = 5
 
             MonthProvider.setDateFormatGrid()
@@ -102,7 +116,7 @@ class AttendanceActivity : AppCompatActivity() {
             binding.attendanceListMonths.layoutManager = GridLayoutManager(this, newSpanCount).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return when (adapterCalendar?.getItemViewType(position)) {
+                        return when (adapterCalendar.getItemViewType(position)) {
                             R.layout.row_calendar_month -> 5
                             R.layout.row_calendar_day -> 1
                             else -> 1
@@ -119,6 +133,7 @@ class AttendanceActivity : AppCompatActivity() {
             binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
             binding.fab.setImageResource(R.drawable.img__attendance_screen__grid_button)
         }
+        //adapterCalendar.notifyDataSetChanged()
     }
 
 }
