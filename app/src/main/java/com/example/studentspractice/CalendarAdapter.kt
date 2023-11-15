@@ -7,9 +7,10 @@ import com.example.studentspractice.databinding.RowCalendarDayBinding
 import com.example.studentspractice.databinding.RowCalendarMonthBinding
 import java.lang.IllegalArgumentException
 
-class CalendarAdapter (var items: MutableList<CalendarItem>,
+class CalendarAdapter (private var items: MutableList<CalendarItem>,
     private val onDayClickListener: (CalendarItem.DayData) -> Unit,
-    private val onDayLongClickListener: (CalendarItem.DayData) -> Unit
+    private val onDayLongClickListener: (CalendarItem.DayData) -> Unit,
+    private val isGridLayout: Boolean
 ) : RecyclerView.Adapter<CalendarRecyclerViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarRecyclerViewHolder {
@@ -22,7 +23,7 @@ class CalendarAdapter (var items: MutableList<CalendarItem>,
             R.layout.row_calendar_day -> CalendarRecyclerViewHolder.DayViewHolder(
                 RowCalendarDayBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
-                )
+                ), isGridLayout
             )
             else -> throw IllegalArgumentException("Invalid view type")
         }

@@ -44,7 +44,8 @@ class AttendanceActivity : AppCompatActivity() {
                 val message = "El ${dayItem.dayName} estuvo de ${dayItem.state}"
                 showAlertDialog(message)
             },
-            {dayItem -> setNewDayState(dayItem)}
+            {dayItem -> setNewDayState(dayItem)},
+            isGridLayout
         )
         binding.attendanceListMonths.adapter = adapterCalendar
     }
@@ -58,8 +59,6 @@ class AttendanceActivity : AppCompatActivity() {
     private fun setMonthList(){
         calendarItems.clear()
 
-        binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
-
         val monthNames = DateFormatSymbols(Locale("es")).months
 
         for (month in 9..12){
@@ -68,15 +67,8 @@ class AttendanceActivity : AppCompatActivity() {
 
             calendarItems.add(CalendarItem.MonthData(monthName.replaceFirstChar{ it.uppercase()}))
 
-            if (!isGridLayout) {
-                daysOfMonth.forEach { day ->
-                    calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
-                }
-            } else {
-                daysOfMonth.forEach { day ->
-                    calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
-                    //binding.attendanceListMonths.visibility = View.GONE
-                }
+            daysOfMonth.forEach { day ->
+                calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
             }
         }
     }
@@ -125,9 +117,9 @@ class AttendanceActivity : AppCompatActivity() {
     private fun toggleLayout() {
         if (!isGridLayout) {
             val newSpanCount = 5
-
-            MonthProvider.setDateFormatGrid()
             isGridLayout = true
+            setAdapter()
+            MonthProvider.setDateFormatGrid()
             setMonthList()
 
             binding.attendanceListMonths.layoutManager = GridLayoutManager(this, newSpanCount).apply {
@@ -146,11 +138,11 @@ class AttendanceActivity : AppCompatActivity() {
         } else {
             MonthProvider.setDateFormatLinear()
             isGridLayout = false
+            setAdapter()
             setMonthList()
             binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
             binding.fab.setImageResource(R.drawable.img__attendance_screen__grid_button)
         }
-        //adapterCalendar.notifyDataSetChanged()
     }
 
 }
