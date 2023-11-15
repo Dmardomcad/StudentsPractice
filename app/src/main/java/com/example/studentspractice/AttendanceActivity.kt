@@ -1,6 +1,7 @@
 package com.example.studentspractice
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,17 +24,15 @@ class AttendanceActivity : AppCompatActivity() {
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
-
+        setSupportActionBar(binding.toolbar)
         setAdapter()
-        binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
-
         setCollapsingBarTitle()
         setMonthList()
+
+        binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
         binding.attendanceActivityClose.setOnClickListener { finish() }
 
         val toggleButton = binding.fab
-
         toggleButton.setOnClickListener {toggleLayout() }
     }
 
@@ -41,7 +40,7 @@ class AttendanceActivity : AppCompatActivity() {
         calendarItems = mutableListOf()
         adapterCalendar = CalendarAdapter(calendarItems,
             {dayItem ->
-                val message = "El ${dayItem.dayName} estuvo de ${dayItem.state}"
+                val message = resources.getString(R.string.alert_message, dayItem.dayName, dayItem.state)
                 showAlertDialog(message)
             },
             {dayItem -> setNewDayState(dayItem)},
@@ -75,7 +74,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun showAlertDialog(message: String){
         val builder = AlertDialog.Builder(this)
-        builder.setMessage(message).setPositiveButton("Aceptar") { dialog, _ ->
+        builder.setMessage(message).setPositiveButton(R.string.accept) { dialog, _ ->
             dialog.dismiss()
         }
             .create()
@@ -83,9 +82,8 @@ class AttendanceActivity : AppCompatActivity() {
     }
 
     private fun setNewDayState(dayItem: CalendarItem.DayData){
-        val options = arrayOf("Formación", "Vacaciones","Centro")
+        val options : Array<String> = resources.getStringArray(R.array.options_items)
         val builder = AlertDialog.Builder(this)
-
         val previousState = dayItem.state
 
         builder.setTitle(getString(R.string.change_day_state))
@@ -93,8 +91,11 @@ class AttendanceActivity : AppCompatActivity() {
                 val selectedOption = options[which]
                 dayItem.state = selectedOption
                 adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
+                Log.d("Comprobación indexOf","El index es : ${calendarItems.indexOf(dayItem)}")
+
 
                 showUndoSnackbar(previousState, dayItem)
+                Log.d("Comprobación option selected", "La opción es ${selectedOption}")
             }
             .create()
             .show()

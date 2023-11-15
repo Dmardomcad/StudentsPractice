@@ -18,4 +18,11 @@
     <string name="undo">Deshacer</string>
     <string name="changed_state">Estado cambiado</string>
     <string name="undo_change">Cambio deshecho</string>
+    <string-array name="options_items">
+        <item name="study">Formación</item>
+        <item name="vacation">Vacaciones</item>
+        <item name="school">Centro</item>
+    </string-array>
+    <string name="alert_message">El %1$s estuvo de %2$s</string>
+    <string name="accept">Aceptar</string>
 </resources>
