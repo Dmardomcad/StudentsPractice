@@ -13,8 +13,8 @@ class MonthProvider {
             val daysInMonth = mutableListOf<String>()
             val daysInMonthCount = getDaysInMonth(month, year)
             val firstDay = LocalDate.of(year, month, 1)
-
             var currentDay = firstDay
+
             for(i in 1..daysInMonthCount){
                 if(currentDay.dayOfWeek != DayOfWeek.SATURDAY && currentDay.dayOfWeek != DayOfWeek.SUNDAY) {
                     daysInMonth.add(currentDay.format(dateFormat))

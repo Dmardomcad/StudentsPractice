@@ -21,15 +21,12 @@
         android:id="@+id/tabLayout"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:backgroundTint="@color/bluegreen"
+        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/orange"
         app:tabMode="scrollable"
         app:tabTextColor="@color/white" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,9 +31,8 @@ sealed class CalendarRecyclerViewHolder(binding: ViewBinding) : RecyclerView.Vie
         }
         private fun changeTextColor(state: String) {
             val colorResId = when (state) {
-                "Vacaciones" -> R.color.colorStateVacaciones
-                "Formación" -> R.color.colorStateFormacion
-                "Centro" -> R.color.colorStateCentro
+                itemView.context.getString(R.string.day_state_vacations) -> R.color.colorStateVacaciones
+                itemView.context.getString(R.string.day_state_school) -> R.color.colorStateCentro
                 else -> android.R.color.black
             }
                 val color = ContextCompat.getColor(binding.root.context, colorResId)

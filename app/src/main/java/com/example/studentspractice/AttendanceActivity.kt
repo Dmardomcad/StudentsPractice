@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentspractice.databinding.ActivityAttendanceBinding
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.snackbar.Snackbar
 import java.text.DateFormatSymbols
 import java.util.Locale
@@ -15,6 +17,8 @@ class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
     private lateinit var calendarItems: MutableList<CalendarItem>
     private lateinit var adapterCalendar: CalendarAdapter
+    private lateinit var appBarLayout: AppBarLayout
+    private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private var modifiedDayStates: MutableMap<String, String> = mutableMapOf()
     private var isGridLayout: Boolean = false
 
@@ -24,16 +28,13 @@ class AttendanceActivity : AppCompatActivity() {
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
         setAdapter()
         setCollapsingBarTitle()
         setMonthList()
 
         binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
         binding.attendanceActivityClose.setOnClickListener { finish() }
-
-        val toggleButton = binding.fab
-        toggleButton.setOnClickListener {toggleLayout() }
+        binding.attendanceActivityToggleLayout.setOnClickListener {toggleLayout() }
     }
 
     private fun setAdapter(){
@@ -52,18 +53,29 @@ class AttendanceActivity : AppCompatActivity() {
     private fun setCollapsingBarTitle(){
         val titleName = intent.getStringExtra("name")
         val titleSurname = intent.getStringExtra("surname")
-        binding.toolbarLayout.title = "${titleName} ${titleSurname}"
+        val expandedTitle = binding.expandedTitle
+        appBarLayout = binding.appBar
+        collapsingToolbarLayout = binding.toolbarLayout
+
+        appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
+            if (verticalOffset.plus(totalScrollRange) == 0) {
+                expandedTitle.text = "$titleName"
+            } else {
+                expandedTitle.text = "$titleName ${titleSurname?.substringBefore(" ")}"
+            }
+        }
     }
 
     private fun setMonthList(){
         calendarItems.clear()
 
+        var dayId = 0
         val monthNames = DateFormatSymbols(Locale("es")).months
 
         for (month in 9..12){
             val daysOfMonth = MonthProvider.getDaysForMonth(month, 2023)
             val monthName = monthNames[month - 1]
-            var dayId = 0
 
             calendarItems.add(CalendarItem.MonthData(monthName.replaceFirstChar{ it.uppercase()}))
 
@@ -114,6 +126,7 @@ class AttendanceActivity : AppCompatActivity() {
         )
         snackbar.setAction(R.string.undo) {
             dayItem.state = previousState
+            modifiedDayStates[dayItem.dayIdentifier] = previousState
             adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
             Snackbar.make(binding.attendanceContainerLayout, R.string.undo_change, Snackbar.LENGTH_SHORT).show()
         }
@@ -140,14 +153,14 @@ class AttendanceActivity : AppCompatActivity() {
                 }
             }
 
-            binding.fab.setImageResource(R.drawable.img__attendance_screen__list_button)
+            binding.attendanceActivityToggleLayout.setImageResource(R.drawable.img__attendance_screen__list_button)
         } else {
             MonthProvider.setDateFormatLinear()
             isGridLayout = false
             setAdapter()
             setMonthList()
             binding.attendanceListMonths.layoutManager = LinearLayoutManager(this)
-            binding.fab.setImageResource(R.drawable.img__attendance_screen__grid_button)
+            binding.attendanceActivityToggleLayout.setImageResource(R.drawable.img__attendance_screen__grid_button)
         }
     }
 

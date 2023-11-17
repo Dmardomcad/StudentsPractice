@@ -40,6 +40,43 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/Theme.StudentsPractice.PopupOverlay" />
 
+            <TextView
+                android:id="@+id/expandedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_collapseMode="pin"
+                android:layout_gravity="bottom|center"
+                app:layout_collapseParallaxMultiplier="1.0"
+                android:textSize="24sp"
+                android:layout_marginBottom="20dp"
+                />
+            <ImageButton
+                android:id="@+id/attendanceActivityClose"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/go_back"
+                android:background="@android:color/transparent"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+                app:tint="@color/black"
+                app:layout_collapseMode="pin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <ImageButton
+                android:id="@+id/attendanceActivityToggleLayout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:contentDescription="@string/change_calendar_style"
+                app:layout_collapseMode="pin"
+                android:layout_gravity="bottom|end"
+                app:srcCompat="@drawable/img__attendance_screen__grid_button" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -52,34 +89,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/attendanceListMonths"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"/>
 
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    <ImageButton
-        android:id="@+id/attendanceActivityClose"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/go_back"
-        android:background="@android:color/transparent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        app:tint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:contentDescription="@string/change_calendar_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/img__attendance_screen__grid_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

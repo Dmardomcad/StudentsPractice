@@ -25,4 +25,6 @@
     </string-array>
     <string name="alert_message">El %1$s estuvo de %2$s</string>
     <string name="accept">Aceptar</string>
+    <string name="day_state_school">Centro</string>
+    <string name="day_state_vacations">Vacaciones</string>
 </resources>
