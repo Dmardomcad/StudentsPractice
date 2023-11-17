@@ -39,14 +39,15 @@ class StudentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val buttonNavigator = binding?.studentBtnCalendar
-        buttonNavigator?.setOnClickListener{
+
+        buttonNavigator?.setOnClickListener {
             val currentStudent = arguments?.getInt(POSITION_ARG)
             val students = StudentProvider.studentList
 
-            if(currentStudent != null){
+            if (currentStudent != null) {
                 val intent = Intent(context, AttendanceActivity::class.java)
-                intent.putExtra("name",students[currentStudent].name)
-                intent.putExtra("surname",students[currentStudent].surname)
+                intent.putExtra("name", students[currentStudent].name)
+                intent.putExtra("surname", students[currentStudent].surname)
                 startActivity(intent)
             }
         }
@@ -54,9 +55,9 @@ class StudentFragment : Fragment() {
         val currentStudent = arguments?.getInt(POSITION_ARG)
         val students = StudentProvider.studentList
 
-        if(currentStudent != null){
+        if (currentStudent != null) {
             val actualStudent = students[currentStudent]
-            actualStudent.apply{
+            actualStudent.apply {
                 binding?.studentNameContainer?.text = name
                 binding?.studentSurnameContainer?.text = surname
                 binding?.studentEmailContainer?.text = email

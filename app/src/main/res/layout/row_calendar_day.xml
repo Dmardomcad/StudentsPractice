@@ -5,7 +5,7 @@
     android:layout_height="35dp">
 
     <TextView
-        android:id="@+id/txt_day"
+        android:id="@+id/dayLabelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -13,7 +13,7 @@
         android:padding="4dp">
     </TextView>
     <TextView
-        android:id="@+id/txt_day_state"
+        android:id="@+id/dayLabelState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"

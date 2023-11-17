@@ -7,30 +7,33 @@ import com.example.studentspractice.databinding.RowCalendarDayBinding
 import com.example.studentspractice.databinding.RowCalendarMonthBinding
 import java.lang.IllegalArgumentException
 
-class CalendarAdapter (private var items: MutableList<CalendarItem>,
+class CalendarAdapter(
+    private var items: MutableList<CalendarItem>,
     private val onDayClickListener: (CalendarItem.DayData) -> Unit,
     private val onDayLongClickListener: (CalendarItem.DayData) -> Unit,
     private val isGridLayout: Boolean
-) : RecyclerView.Adapter<CalendarRecyclerViewHolder>(){
+) : RecyclerView.Adapter<CalendarRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarRecyclerViewHolder {
         return when (viewType) {
-             R.layout.row_calendar_month -> CalendarRecyclerViewHolder.MonthViewHolder(
-                 RowCalendarMonthBinding.inflate(
-                     LayoutInflater.from(parent.context), parent, false
-                 )
-             )
+            R.layout.row_calendar_month -> CalendarRecyclerViewHolder.MonthViewHolder(
+                RowCalendarMonthBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
+
             R.layout.row_calendar_day -> CalendarRecyclerViewHolder.DayViewHolder(
                 RowCalendarDayBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ), isGridLayout
             )
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun onBindViewHolder(holder: CalendarRecyclerViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is CalendarRecyclerViewHolder.MonthViewHolder -> holder.bind(items[position] as CalendarItem.MonthData)
             is CalendarRecyclerViewHolder.DayViewHolder -> {
                 val dayItem = items[position] as CalendarItem.DayData
@@ -51,7 +54,7 @@ class CalendarAdapter (private var items: MutableList<CalendarItem>,
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(items[position]){
+        return when (items[position]) {
             is CalendarItem.MonthData -> R.layout.row_calendar_month
             is CalendarItem.DayData -> R.layout.row_calendar_day
         }

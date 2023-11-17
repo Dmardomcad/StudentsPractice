@@ -1,7 +1,7 @@
 package com.example.studentspractice
 
 class TutorProvider {
-    companion object{
+    companion object {
         val tutorList = listOf<Tutor>(
             Tutor(
                 "Jose Alberto",

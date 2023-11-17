@@ -6,6 +6,7 @@ import com.example.studentspractice.databinding.ActivityStudentsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class StudentsActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityStudentsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,17 +14,15 @@ class StudentsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpTabLayout()
-
     }
 
-    private fun setUpTabLayout(){
+    private fun setUpTabLayout() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.fragmentPager
         val adapter = StudentAdapter(this)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){
-                tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
     }

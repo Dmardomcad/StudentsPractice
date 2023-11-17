@@ -6,6 +6,5 @@
     <color name="bluegreen">#0F8462</color>
     <color name="orange">#DC9C3C</color>
     <color name="colorStateVacaciones">#FF0000</color>
-    <color name="colorStateFormacion">#00FF00</color>
-    <color name="colorStateCentro">#FFFF00</color>
+    <color name="colorStateCentro">#F3F33B</color>
 </resources>

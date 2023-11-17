@@ -10,7 +10,7 @@
     tools:context=".AttendanceActivity">
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="match_parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
                 app:popupTheme="@style/Theme.StudentsPractice.PopupOverlay" />
 
             <TextView
-                android:id="@+id/expandedTitle"
+                android:id="@+id/attendanceLabelTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -52,7 +52,7 @@
                 android:layout_marginBottom="20dp"
                 />
             <ImageButton
-                android:id="@+id/attendanceActivityClose"
+                android:id="@+id/attendanceBtnClose"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 />
             <ImageButton
-                android:id="@+id/attendanceActivityToggleLayout"
+                android:id="@+id/attendanceBtnToggleLayout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/white"
