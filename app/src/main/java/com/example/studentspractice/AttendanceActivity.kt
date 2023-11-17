@@ -1,7 +1,6 @@
 package com.example.studentspractice
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +15,7 @@ class AttendanceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceBinding
     private lateinit var calendarItems: MutableList<CalendarItem>
     private lateinit var adapterCalendar: CalendarAdapter
+    private var modifiedDayStates: MutableMap<String, String> = mutableMapOf()
     private var isGridLayout: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,11 +63,19 @@ class AttendanceActivity : AppCompatActivity() {
         for (month in 9..12){
             val daysOfMonth = MonthProvider.getDaysForMonth(month, 2023)
             val monthName = monthNames[month - 1]
+            var dayId = 0
 
             calendarItems.add(CalendarItem.MonthData(monthName.replaceFirstChar{ it.uppercase()}))
 
             daysOfMonth.forEach { day ->
-                calendarItems.add(CalendarItem.DayData(day, getString(R.string.day_state_study)))
+                dayId++
+                val dayIdentifier = "${monthName}_${dayId}"
+                val modifiedState = modifiedDayStates[dayIdentifier]
+                if(modifiedState != null) {
+                    calendarItems.add(CalendarItem.DayData(dayIdentifier, day, modifiedState))
+                } else {
+                    calendarItems.add(CalendarItem.DayData(dayIdentifier, day, getString(R.string.day_state_study)))
+                }
             }
         }
     }
@@ -91,11 +99,8 @@ class AttendanceActivity : AppCompatActivity() {
                 val selectedOption = options[which]
                 dayItem.state = selectedOption
                 adapterCalendar.notifyItemChanged(calendarItems.indexOf(dayItem))
-                Log.d("Comprobación indexOf","El index es : ${calendarItems.indexOf(dayItem)}")
-
-
+                modifiedDayStates[dayItem.dayIdentifier] = selectedOption
                 showUndoSnackbar(previousState, dayItem)
-                Log.d("Comprobación option selected", "La opción es ${selectedOption}")
             }
             .create()
             .show()

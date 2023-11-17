@@ -5,6 +5,7 @@ sealed class CalendarItem {
         val nameOfMonth: String,
     ) : CalendarItem()
     data class DayData(
+        var dayIdentifier: String,
         val dayName: String,
         var state: String
     ) : CalendarItem()
