@@ -19,7 +19,7 @@ class StudentsActivity : AppCompatActivity() {
     private fun setUpTabLayout() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.fragmentPager
-        val adapter = StudentAdapter(this)
+        val adapter = StudentAdapter(this, StudentProvider.studentList)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -29,8 +29,8 @@ class StudentsActivity : AppCompatActivity() {
 
     private fun getTabTitle(position: Int): String {
         val students = StudentProvider.studentList
-        val curStudentEmail = students[position].email
+        val currentStudentEmail = students[position].email
 
-        return curStudentEmail.substringBefore('@')
+        return currentStudentEmail.substringBefore('@')
     }
 }

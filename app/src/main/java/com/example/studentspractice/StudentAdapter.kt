@@ -4,9 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class StudentAdapter(fragmentActivity: AppCompatActivity) : FragmentStateAdapter(fragmentActivity) {
+class StudentAdapter(fragmentActivity: AppCompatActivity, private val students: List<Student>) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
-        val students = StudentProvider.studentList
         return students.size
     }
 
