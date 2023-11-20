@@ -2,12 +2,9 @@ package com.example.studentspractice
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-private val students = StudentProvider.studentList
-
-class StudentAdapter(fragmentActivity: AppCompatActivity): FragmentStateAdapter(fragmentActivity) {
+class StudentAdapter(fragmentActivity: AppCompatActivity, private val students: List<Student>): FragmentStateAdapter(fragmentActivity) {
         override fun getItemCount(): Int {
             return students.size
         }

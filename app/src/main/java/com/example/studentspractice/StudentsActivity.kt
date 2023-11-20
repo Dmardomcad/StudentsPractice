@@ -6,42 +6,41 @@ import android.os.Bundle
 import com.example.studentspractice.databinding.ActivityStudentsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-private lateinit var binding: ActivityStudentsBinding
+
 class StudentsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityStudentsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStudentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setUpTabLayout()
-
-        setUpClickListeners()
-
-    }
-    private fun setUpClickListeners(){
-        binding.studentBtnCalendar.setOnClickListener{ navigateToAttendance() }
+        binding.studentBtnCalendar.setOnClickListener { navigateToAttendance() }
 
     }
-    private fun navigateToAttendance(){
+
+    private fun navigateToAttendance() {
         val intent = Intent(this, AttendanceActivity::class.java)
         startActivity(intent)
     }
-    private fun setUpTabLayout(){
+
+    private fun setUpTabLayout() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.fragmentPager
-        val adapter = StudentAdapter(this)
+        val adapter = StudentAdapter(this, StudentProvider.studentList)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){
-                tab, position ->
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
     }
 
     private fun getTabTitle(position: Int): String? {
         val students = StudentProvider.studentList
-        val curStudentEmail = students[position].email
+        val currentStudentEmail = students[position].email
 
-        return curStudentEmail.substringBefore('@')
+        return currentStudentEmail.substringBefore('@')
     }
 }
